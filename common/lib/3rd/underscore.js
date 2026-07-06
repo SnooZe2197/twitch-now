@@ -1451,7 +1451,9 @@
       source + 'return __p;\n';
 
     try {
-      var render = new Function(settings.variable || 'obj', '_', source);
+    var render = function() {
+      throw new Error("Underscore templates are disabled by the Manifest V3 content security policy.");
+    };
     } catch (e) {
       e.source = source;
       throw e;

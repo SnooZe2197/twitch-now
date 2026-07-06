@@ -1,40 +1,7 @@
 {
-  "name": "twitch-now",
-  "version": "1.1.216",
-  "description": "* Chrome version: https://chrome.google.com/webstore/detail/twitch-now/nlmbdmpjmlijibeockamioakdpmhjnpk * Firefox version: https://docs.google.com/file/d/0BykW-NfUUzm5Z2RCWmcxTmQ5cEk * Opera version: https://addons.opera.com/extensions/details/twitch-now/",
-  "dependencies": {
-    "semver": "^7.3.2",
-    "through2": "^2.0.5"
-  },
-  "devDependencies": {
-    "del": "^2.1.0",
-    "gulp": "^4.0.2",
-    "gulp-bump": "^1.0.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-declare": "^0.3.0",
-    "gulp-handlebars": "^5.0.2",
-    "gulp-jshint": "^2.1.0",
-    "gulp-shell": "^0.5.1",
-    "gulp-strip-debug": "^3.0.0",
-    "gulp-util": "^3.0.7",
-    "gulp-wrap": "^0.15.0",
-    "gulp-zip": "^3.0.2",
-    "jshint": "^2.10.3",
-    "merge-stream": "^1.0.0",
-    "request": "^2.88.0",
-    "run-sequence": "^1.1.4"
-  },
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Ndragomirov/twitch-now"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ndragomirov/twitch-now/issues"
-  },
-  "homepage": "https://github.com/Ndragomirov/twitch-now"
+    "test": "node tests/mv3-runtime.test.js",
+    "test:brave": "node tests/brave-extension-smoke.js"
+  }
 }

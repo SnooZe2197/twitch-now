@@ -2,7 +2,7 @@
   "use strict";
 
   var app = window.app = _.extend({}, Backbone.Events);
-  var b = app.b = utils._getBackgroundPage();
+  var b = app.b = utils._getBackgroundContext();
   var _baron;
 
 
@@ -393,6 +393,13 @@
       $("body").toggleClass("simple-version", value);
     },
 
+    applyVisualSettings: function (){
+      var themeType = this.collection.get("themeType");
+      var simpleView = this.collection.get("simpleView");
+      this.changeThemeType(themeType && themeType.get("value"));
+      this.toggleSimpleView(!!(simpleView && simpleView.get("value")));
+    },
+
     onModelChange: function (model, options){
       var v = model.get("value");
 
@@ -428,11 +435,11 @@
     initialize : function (){
       LazyRenderView.prototype.initialize.apply(this, arguments);
       this.setDefaultTab(this.collection.get("defaultTab").get("value"));
-      this.changeThemeType(this.collection.get("themeType").get("value"));
-      this.toggleSimpleView(this.collection.get("simpleView").get("value"));
+      this.applyVisualSettings();
 
       this.$container = this.$el.find("#settings-container");
       this.listenTo(this.collection, "change", this.onModelChange);
+      this.listenTo(this.collection, "reset update", this.applyVisualSettings);
     },
     serialize  : function (){
       var controls = [];
@@ -581,13 +588,15 @@
       // Open stream on left and middle click
       const canOpenStreamTab = e.which <= 2;
       if (canOpenStreamTab) {
-        this.model.openStream();
-        window.close();
+        this.model.openStream(function (){
+          window.close();
+        });
       }
     },
     openChat  : function (){
-      this.model.openChat();
-      window.close();
+      this.model.openChat(function (){
+        window.close();
+      });
     },
     showMenu  : function (e){
       var self = this;
@@ -601,16 +610,19 @@
 
       menu.$el
         .on('click', '.js-open-chat', function (){
-          self.model.openChat();
-          window.close();
+          self.model.openChat(function (){
+            window.close();
+          });
         })
         .on('click', '.js-open-in-multitwitch', function (){
-          self.model.openMultitwitch();
-          window.close();
+          self.model.openMultitwitch(function (){
+            window.close();
+          });
         })
         .on('click', '.js-open-stream', function (e){
-          self.model.openStream($(e.target).attr("data-type"));
-          window.close();
+          self.model.openStream($(e.target).attr("data-type"), function (){
+            window.close();
+          });
         })
         .on('click', '.js-follow', function (){
           self.follow();

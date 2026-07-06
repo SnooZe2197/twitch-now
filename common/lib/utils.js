@@ -50,16 +50,17 @@
     _browser.windows.create(defaults);
   }
 
-  var _browserAction = that.browserAction = {};
+  var _action = that.action = {};
+  var actionApi = _browser.action;
 
-  _browserAction.setBadgeText = function (opts){
-    _browser.browserAction.setBadgeText({
+  _action.setBadgeText = function (opts){
+    actionApi.setBadgeText({
       text: opts.text
     })
   }
 
-  _browserAction.setBadgeBackgroundColor = function(color){
-    _browser.browserAction.setBadgeBackgroundColor(color);
+  _action.setBadgeBackgroundColor = function(color){
+    actionApi.setBadgeBackgroundColor(color);
   }
 
   var _i18n = that.i18n = {};
@@ -88,8 +89,8 @@
     return _browser.notifications && _browser.notifications.create;
   }
 
-  that._getBackgroundPage = function (){
-    return _browser.extension.getBackgroundPage();
+  that._getBackgroundContext = function (){
+    return root.__backgroundPage || root;
   }
 
   that.getConstants = function (){
